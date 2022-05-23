@@ -22,14 +22,14 @@ export default {
     <div class="flip-card">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <img src="{{logo}}.png" alt="Logomarca" style="width:300px;height:300px;">
+                <img src="" alt="Logomarca" style="width:70px; height:50px;">
                 <p>{{cargo}}</p>
                 <p>{{regime}}</p>
                 <p>{{cidade}}</p>
                 <p>{{estado}}</p>
             </div>
             <div class="flip-card-back">
-                <p>{{remuneracao}}</p>
+                <p>R${{remuneracao}}</p>
                 <p>{{conhecimentos}}</p>
                 <p>{{formacao}}</p>
                 <p>{{jornada}}</p>

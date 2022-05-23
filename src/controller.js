@@ -14,26 +14,41 @@ app.get("/", function (req, res) {
 });
 // definindo a rota ajuda
 app.get("/ajuda", function (req, res) {
+    
     res.send("Página de ajuda!");
 });
 
 app.get("/cards/:filtro?", function(req,res){
     const filtro = req.params.filtro;
-    const query = filtro ? { titulo: {'$regex': filtro, '$options': 'i'} } : {};
-    console.log(query);
+
+    if(filtro != undefined){
     MongoClient.connect(url, (err, db) => { 
         if (err) throw err;
-        var dbo = db.db("empregosdb");
-        dbo.collection("vagas").find({
-            "cargo":query
+        var dbo = db.db("piadasdb");
+        dbo.collection("vagas").find({ 'cargo': {'$regex': filtro}
         })
-        .sort({ _id: -1 })
+        .sort({ _id: 1 })
         .toArray(function(err, result) {
             if (err) throw err;
+            console.log(result);
             res.json(result);
             db.close();
         });
     });
+    }else{
+        MongoClient.connect(url, (err, db) => { 
+            if (err) throw err;
+            var dbo = db.db("piadasdb");
+            dbo.collection("vagas").find({})
+            .sort({ _id: 1 })
+            .toArray(function(err, result) {
+                if (err) throw err;
+                console.log(result);
+                res.json(result);
+                db.close();
+            });
+        });
+    }
 });
 
 // executando o servidor

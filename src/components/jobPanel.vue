@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <div v-for="vagas in vaga" :key="vagas.id">
+  <h1>OFERTA DE VAGAS</h1>
+  <div class="row" >
+    <div v-for="vagas in vaga" :key="vagas.id" class="col-sm-3">
       <jobCard
       :cargo="vagas.cargo"
       :cidade="vagas.cidade"
@@ -39,14 +40,15 @@ export default {
       cards:[],
       search: "",
       vaga: [],
+      URL: "http://localhost:8081",
     }
   },
   mounted(){
-    buscaCards()
+    this.buscaCards()
   },
   methods: {
     buscaCards(){
-      axios.get(`${this.URL}/cards/${this.filtro}`)
+      axios.get(`${this.URL}/cards/${this.search}`)
             .then(response => {
                 console.log(response.data)
                 this.vaga = response.data;
